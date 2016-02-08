@@ -14,44 +14,45 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "io.github.tomacla.failsafe.sample.domain", "io.github.tomacla.failsafe.sample.service" })
+@ComponentScan({ "fr.elgregos.arquillian.example.domain", "fr.elgregos.arquillian.example.service" })
 public class SpringConfiguration {
 
-    @Bean
-    public BasicDataSource datasource() {
-	BasicDataSource connectionPool = new BasicDataSource();
-	connectionPool.setDriverClassName("org.postgresql.Driver");
-	connectionPool.setUsername("postgres");
-	connectionPool.setPassword("postgres");
-	connectionPool.setUrl("jdbc:postgresql://localhost:5431/failsafe");
-	connectionPool.setInitialSize(1);
-	connectionPool.setDefaultAutoCommit(false);
-	return connectionPool;
-    }
+	@Bean
+	public BasicDataSource datasource() {
+		final BasicDataSource connectionPool = new BasicDataSource();
+		connectionPool.setDriverClassName("org.postgresql.Driver");
+		connectionPool.setUsername("it");
+		connectionPool.setPassword("it");
+		connectionPool.setUrl("jdbc:postgresql://localhost:5432/it");
+		connectionPool.setInitialSize(1);
+		connectionPool.setDefaultAutoCommit(false);
+		return connectionPool;
+	}
 
-    private Properties hibernateProperties() {
-	Properties properties = new Properties();
-	properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-	properties.put("hibernate.show_sql", "true");
-	properties.put("hibernate.format_sql", "true");
-	return properties;
-    }
+	private Properties hibernateProperties() {
+		final Properties properties = new Properties();
+		properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.format_sql", "true");
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		return properties;
+	}
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-	LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-	sessionFactory.setDataSource(datasource());
-	sessionFactory.setPackagesToScan(new String[] { "io.github.tomacla.failsafe.sample.domain" });
-	sessionFactory.setHibernateProperties(hibernateProperties());
-	return sessionFactory;
-    }
+	@Bean
+	public LocalSessionFactoryBean sessionFactory() {
+		final LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setDataSource(this.datasource());
+		sessionFactory.setPackagesToScan(new String[] { "fr.elgregos.arquillian.example.domain" });
+		sessionFactory.setHibernateProperties(this.hibernateProperties());
+		return sessionFactory;
+	}
 
-    @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-	HibernateTransactionManager txManager = new HibernateTransactionManager();
-	txManager.setSessionFactory(sessionFactory);
-	return txManager;
-    }
+	@Bean
+	@Autowired
+	public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
+		final HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory);
+		return txManager;
+	}
 
 }

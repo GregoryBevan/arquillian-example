@@ -6,23 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractRepository {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	@Autowired
+	private SessionFactory sessionFactory;
 
-    public void delete(Object entity) {
-	getSession().delete(entity);
-    }
+	public void delete(final Object entity) {
+		this.getSession().delete(entity);
+	}
 
-    public <T> T get(Long id, Class<T> clazz) {
-	return getSession().get(clazz, id);
-    }
+	public <T> T get(final Long id, final Class<T> clazz) {
+		return this.getSession().get(clazz, id);
+	}
 
-    protected Session getSession() {
-	return sessionFactory.getCurrentSession();
-    }
+	protected Session getSession() {
+		return this.sessionFactory.getCurrentSession();
+	}
 
-    public void persist(Object entity) {
-	getSession().persist(entity);
-    }
+	public void persist(final Object entity) {
+		this.getSession().persist(entity);
+	}
 
 }

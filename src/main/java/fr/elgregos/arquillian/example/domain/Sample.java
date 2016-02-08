@@ -1,5 +1,7 @@
 package fr.elgregos.arquillian.example.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,31 +10,33 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sample")
-public class Sample {
+public class Sample implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	public static final long serialVersionUID = 1L;
 
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Long getId() {
-	return id;
-    }
+	private String name;
 
-    public String getName() {
-	return name;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
-    }
-
-    public void setName(String name) {
-	if (name == null || name.length() < 3) {
-	    throw new IllegalArgumentException("Name can not be null and must have a size of at least 3 characters");
+	public Long getId() {
+		return this.id;
 	}
-	this.name = name;
-    }
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setId(final Long id) {
+		this.id = id;
+	}
+
+	public void setName(final String name) {
+		if (name == null || name.length() < 3) {
+			throw new IllegalArgumentException("Name can not be null and must have a size of at least 3 characters");
+		}
+		this.name = name;
+	}
 
 }

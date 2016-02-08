@@ -11,23 +11,23 @@ import fr.elgregos.arquillian.example.domain.SampleRepository;
 @Transactional
 public class SampleService {
 
-    @Autowired
-    private SampleRepository repository;
+	@Autowired
+	private SampleRepository repository;
 
-    public Sample create(String name) {
-	Sample s = new Sample();
-	s.setName(name);
-	repository.persist(s);
-	return s;
-    }
+	public Sample create(final String name) {
+		final Sample s = new Sample();
+		s.setName(name);
+		this.repository.persist(s);
+		return s;
+	}
 
-    public void delete(Long id) {
-	Sample entity = repository.get(id, Sample.class);
-	repository.delete(entity);
-    }
+	public void delete(final Long id) {
+		final Sample entity = this.repository.get(id, Sample.class);
+		this.repository.delete(entity);
+	}
 
-    public Sample get(Long id) {
-	return repository.get(id, Sample.class);
-    }
+	public Sample get(final Long id) {
+		return this.repository.get(id, Sample.class);
+	}
 
 }
