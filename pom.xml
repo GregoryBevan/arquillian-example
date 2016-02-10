@@ -15,6 +15,7 @@
 		<arquillian.tomcat.embedded.version>1.0.0.CR7</arquillian.tomcat.embedded.version>
 		<version.shrinkwrap.resolvers>1.2.3</version.shrinkwrap.resolvers>
 		<tomcat.embedded.version>8.0.1</tomcat.embedded.version>
+		<arquillian.warp.version>1.0.0.Alpha7</arquillian.warp.version>
 		<arquillian.rest.version>1.0.0.Alpha4</arquillian.rest.version>
 		<version.resteasy>3.0.14.Final</version.resteasy>
 		<postgresql.version>9.3-1102-jdbc41</postgresql.version>
@@ -41,6 +42,13 @@
 				<version>1.1.11.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian.extension</groupId>
+				<artifactId>arquillian-warp-bom</artifactId>
+				<version>${arquillian.warp.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -166,6 +174,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-warp</artifactId>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-rest-client-api</artifactId>
 			<version>${arquillian.rest.version}</version>
 			<scope>test</scope>
@@ -173,6 +187,12 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-rest-client-impl-3x</artifactId>
+			<version>${arquillian.rest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-rest-warp-impl-jaxrs-2.0</artifactId>
 			<version>${arquillian.rest.version}</version>
 			<scope>test</scope>
 		</dependency>
